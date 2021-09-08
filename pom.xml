@@ -52,6 +52,16 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.5.7.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.br.tec</groupId>
+            <artifactId>Gerencia-Managent</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.5.4</version>
+        </dependency>
     </dependencies>
 
     <build>
