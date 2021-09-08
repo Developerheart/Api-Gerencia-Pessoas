@@ -1,8 +1,9 @@
-package com.br.tec.gerenciamanagent.dto;
+package com.br.tec.gerenciamanagent.controllers;
 
 
 import com.br.tec.gerenciamanagent.entities.Pessoa;
 import com.br.tec.gerenciamanagent.entities.PessoaDto;
+import com.br.tec.gerenciamanagent.exceptions.PessoaNotFoundException;
 import com.br.tec.gerenciamanagent.services.PessoaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +47,20 @@ public class PessoaController {
     @GetMapping
     public List<Pessoa> listAll() {
         return pessoaService.all();
+    }
+
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PessoaDto> update(@PathVariable Long id, @RequestBody @Valid PessoaDto personDTO) throws PessoaNotFoundException {
+        return pessoaService.update(id, personDTO);
+    }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) throws PessoaNotFoundException {
+        pessoaService.delete(id);
     }
 
 }

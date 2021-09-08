@@ -2,8 +2,12 @@ package com.br.tec.gerenciamanagent.services;
 
 
 import com.br.tec.gerenciamanagent.entities.Pessoa;
+import com.br.tec.gerenciamanagent.entities.PessoaDto;
+import com.br.tec.gerenciamanagent.exceptions.PessoaNotFoundException;
 import com.br.tec.gerenciamanagent.repositories.PessoaRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +37,24 @@ public class PessoaService {
     public List<Pessoa> all (){
         return pessoaRepository.findAll();
     }
+
+    public ResponseEntity<PessoaDto> update(Long id, PessoaDto personDTO) throws PessoaNotFoundException {
+        pessoaRepository.findById(id)
+                .orElseThrow(() -> new PessoaNotFoundException(id));
+
+        Pessoa pessoa = new Pessoa();
+        BeanUtils.copyProperties(personDTO, pessoa);
+        pessoaRepository.save(pessoa);
+        return ResponseEntity.ok(personDTO);
+    }
+
+    public void delete(Long id) throws PessoaNotFoundException {
+        pessoaRepository.findById(id)
+                .orElseThrow(() -> new PessoaNotFoundException(id));
+
+        pessoaRepository.deleteById(id);
+    }
+
+
 
 }
